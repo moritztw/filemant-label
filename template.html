@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    @page { size: 40mm 30mm; margin: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { width: 40mm; height: 30mm; padding: 1.5mm 2mm; background: #ffffff; color: #000000; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
+    .header { border-bottom: 1.2pt solid #000000; padding-bottom: 0.8mm; margin-bottom: 0.8mm; }
+    .brand-row { display: flex; justify-content: space-between; align-items: baseline; line-height: 1; }
+    .brand { font-size: 8pt; font-weight: 700; letter-spacing: -0.1pt; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 26mm; }
+    .hex { font-size: 6pt; font-weight: 600; color: #333333; font-family: monospace; }
+    .material-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.8mm; line-height: 1; }
+    .material { background: #000000; color: #ffffff; font-size: 6.5pt; font-weight: 700; padding: 0.3mm 1.2mm; border-radius: 0.4mm; display: inline-block; line-height: 1; }
+    .color-name { font-size: 6.5pt; font-weight: 500; color: #222222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 22mm; }
+    .content { display: flex; justify-content: space-between; align-items: flex-end; flex-grow: 1; }
+    .specs { font-size: 5.5pt; line-height: 1.35; color: #111111; }
+    .specs table { border-collapse: collapse; }
+    .specs td { padding: 0; }
+    .specs td.label { font-weight: 500; padding-right: 1.5mm; color: #333333; }
+    .specs td.val { font-weight: 600; }
+    .qr-container { width: 14mm; height: 14mm; }
+    .qr-container img { width: 100%; height: 100%; image-rendering: pixelated; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand-row">
+      <span class="brand">{{ brand }}</span>
+      <span class="hex">{{ hex }}</span>
+    </div>
+    <div class="material-row">
+      <span class="material">{{ material }}</span>
+      <span class="color-name">{{ color }}</span>
+    </div>
+  </div>
+  <div class="content">
+    <div class="specs">
+      <table>
+        {% if nozzle %}<tr><td class="label">Nozzle:</td><td class="val">{{ nozzle }}</td></tr>{% endif %}
+        {% if bed %}<tr><td class="label">Bed:</td><td class="val">{{ bed }}</td></tr>{% endif %}
+        {% if flow %}<tr><td class="label">Flow Rate:</td><td class="val">{{ flow }}</td></tr>{% endif %}
+        {% if pressure_adv %}<tr><td class="label">Pressure Adv:</td><td class="val">{{ pressure_adv }}</td></tr>{% endif %}
+        {% if td %}<tr><td class="label">TD:</td><td class="val">{{ td }}</td></tr>{% endif %}
+      </table>
+    </div>
+    <div class="qr-container">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ qr_data | urlencode }}" alt="QR">
+    </div>
+  </div>
+</body>
+</html>
