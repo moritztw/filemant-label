@@ -66,7 +66,7 @@ FORM_HTML = """
 def index():
     return render_template_string(FORM_HTML)
 
-@app.route('/generate', method=['POST'])
+@app.route('/generate', methods=['POST'])
 def generate():
     data = request.form.to_dict()
     data["urlencode"] = lambda x: urllib.parse.quote(str(x))
