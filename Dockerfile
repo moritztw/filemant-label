@@ -1,14 +1,18 @@
 FROM python:3.10-slim
 
-# System-Bibliotheken für WeasyPrint & Poppler (PDF-to-Image) installieren
+# System-Bibliotheken für WeasyPrint (Pango, Cairo, Fonts) & Poppler installieren
 RUN apt-get update && apt-get install -y \
-    python3-weasyprint \
     poppler-utils \
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libharfbuzz-subset0 \
+    libffi-dev \
+    shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Python Abhängigkeiten
+# Python-Abhängigkeiten installieren (WeasyPrint direkt via pip)
 RUN pip install --no-cache-dir flask weasyprint pdf2image jinja2
 
 COPY app.py template.html /app/
