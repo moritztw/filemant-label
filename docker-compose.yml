@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  label-generator:
+    build: .
+    container_name: filament_label_generator
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
